@@ -1,0 +1,30 @@
+package prob2;
+
+public class RefrigeratedItem extends Item{
+	protected double temp;
+	
+	public RefrigeratedItem(String name, double weight, double temp) {
+		super(name, weight);
+		this.temp = temp;
+		
+	}
+	
+	public double cost(){
+		return super.cost() + (100.00 - temp) * 0.1;
+	}
+
+	public double getTemp(){
+		
+		return temp;
+	}
+	
+	public String toString(){
+		String result = " ";
+		
+		result += "name=" + super.getName() + ", cost=" + cost() + ", weight=" 
+		+ super.getWeight() + ", temp=" + getTemp();
+		
+		return result;
+
+	}
+}

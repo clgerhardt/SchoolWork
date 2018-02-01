@@ -1,0 +1,122 @@
+package extraCredit;
+
+//import java.awt.*; 
+import java.util.HashMap;
+//import java.util.Map;
+import java.util.Scanner;
+
+import javax.swing.*;
+
+public class main extends JFrame {
+
+	public static HashMap<String, Integer> map = new HashMap<>();
+	public static int[][] a = new int[7][7];
+
+	public static void main(String[] args) {
+
+		map.put("A", 0);
+		map.put("B", 1);
+		map.put("C", 2);
+		map.put("D", 3);
+		map.put("E", 4);
+		map.put("F", 5);
+		map.put("G", 6);
+
+		for (int r = 0; r < a.length; r++) {
+			for (int c = 0; c < a.length; c++) {
+
+				a[r][c] = 0;
+
+			}
+		}
+
+		Scanner input = new Scanner(System.in);
+		boolean x = false;
+		do {
+
+			System.out.println("                             Your Graph:");
+			System.out.println("***************************************************************************");
+			System.out.println("i)  Degree of Nodes");
+			System.out.println("ii)  Display list of Adjacent nodes to selected nodes");
+			System.out.println("iii) Drop an edge between nodes");
+			System.out.println("iv) Add an edge between nodes");
+			System.out.println("v) Print the adjacent matrix");
+			System.out.println("vi) Quit");
+			System.out.println("***************************************************************************");
+
+			int i = input.nextInt();
+
+			switch (i) {
+			// Display Degree of Node
+			case 1:
+				break;
+			// display list of nodes adjacent to chosen node
+			case 2:
+				break;
+			// Drop and edge between nodes
+			case 3:
+				break;
+			// add and edge between nodes
+			case 4:
+				System.out.println("Enter the frist Node:");
+				String n =  input.next();
+				System.out.println("Enter the second Node:");
+				String g = input.next();
+				
+				a[map.get(n.toUpperCase())][map.get(g.toUpperCase())] = 1;
+				a[map.get(g.toUpperCase())][map.get(n.toUpperCase())] = 1;
+				
+				
+				break;
+			// Print it out
+			case 5:
+
+				for (int r = 0; r < a.length; r++) {
+					System.out.println("");
+					for (int c = 0; c < a.length; c++) {
+
+						System.out.print(a[r][c]);
+
+					}
+				}
+
+				break;
+			// Quit
+			case 6:
+				x = true;
+				break;
+			}
+		} while (x == false);
+
+		// for (int r = 0; r < a.length; r++) {
+		// System.out.println("");
+		// for (int c = 0; c < a.length; c++) {
+		//
+		// System.out.print(a[r][c]);
+		//
+		// }
+		// }
+
+	}
+
+
+
+	// public static void GUI(){
+	//
+	// JFrame f = new JFrame();
+	// JPanel newPanel = new JPanel();
+	// JButton b = new JButton("Button");
+	// JLabel l = new JLabel("Label");
+	// l.setBackground(Color.MAGENTA);
+	//
+	// f.setVisible(true);
+	// f.setSize(600,400);
+	//
+	// newPanel.setBackground(Color.DARK_GRAY);
+	//
+	// newPanel.add(b,l);
+	//
+	// f.add(newPanel,BorderLayout.SOUTH);
+	//
+	// }
+}

@@ -1,0 +1,16 @@
+package animals2;
+
+public class Driver {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Bird2 b = new Bird2("Castro");
+		String msg = b.getName() + ", " + b.fly();
+		System.out.println(msg);
+		
+		Flyer flyer = new Bird2("Wendy");
+		//flyer.getName();
+		System.out.println(flyer.fly());
+
+	}
+}

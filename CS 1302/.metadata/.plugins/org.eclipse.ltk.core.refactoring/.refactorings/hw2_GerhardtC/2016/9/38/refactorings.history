@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename compilation unit &apos;prob2.WareHouse.java&apos; to &apos;Warehouse.java&apos;&#x0A;- Original project: &apos;hw2_GerhardtC&apos;&#x0A;- Original element: &apos;prob2.WareHouse.java&apos;&#x0A;- Renamed element: &apos;prob2.Warehouse.java&apos;" description="Rename compilation unit &apos;WareHouse.java&apos;" flags="2" id="org.eclipse.jdt.ui.rename.compilationunit" input="/src&lt;prob2{WareHouse.java" name="Warehouse.java" references="false" stamp="1474059205308" version="1.0"/>
+</session>

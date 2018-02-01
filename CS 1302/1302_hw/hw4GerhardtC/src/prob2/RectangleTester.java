@@ -1,0 +1,74 @@
+package prob2;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+//import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class RectangleTester {
+
+	public static void main(String[] args) throws IOException {
+
+		File inFile = new File("src/prob2/rectangles.txt");
+
+		// System.out.println("File exists : " + inFile.exists());
+		// System.out.println("File size : " + inFile.length() + " bytes");
+		// System.out.println("Can be read : " + inFile.canRead());
+		// System.out.println("Can be written: " + inFile.canWrite());
+		// System.out.println("Is a directory: " + inFile.isDirectory());
+		// System.out.println("Is a file : " + inFile.isFile());
+		// System.out.println("Is hidden : " + inFile.isHidden());
+		// System.out.println("Absolute path : " + inFile.getAbsolutePath());
+		// System.out.println("Path : " + inFile.getPath());
+		// System.out.println("Parent : " + inFile.getParent());
+		// System.out.println("Name : " + inFile.getName());
+		// // Must compute the "true" path
+		// String absPath = inFile.getAbsolutePath();
+		// int begOfFileName = absPath.lastIndexOf(inFile.getName());
+		// String truePath = absPath.substring(0,begOfFileName);
+		// System.out.println("True path : " + truePath);
+		//
+		// System.out.println("Last modified : " + new
+		// java.util.Date(inFile.lastModified()));
+
+		File outFile = new File("src/prob2/illegalRectangles.txt");
+		ArrayList<Object> illegalR = new ArrayList<>();
+		ArrayList<GeometricObject> rectangles = new ArrayList<>();
+		try {
+			Scanner input = new Scanner(inFile);
+			while (input.hasNext()) {
+				double height = input.nextDouble();
+				double width = input.nextDouble();
+				rectangles.add(new Rectangle(width, height));
+
+			}
+			input.close();
+
+			for (GeometricObject e : rectangles) {
+				try {
+					e.getArea();
+				} catch (IllegalRectangleException re) {
+					illegalR.add(re);
+				}
+			}
+			
+			FileWriter fw = new FileWriter(outFile, false);
+			PrintWriter writer = new PrintWriter(fw);
+			for (Object r : illegalR) {
+				writer.print(r.toString() + " \n");
+
+			}
+			writer.close();
+			System.out.println( "File written" );
+		}
+
+		catch (IOException e) {
+			System.out.println(e);
+		}
+
+
+	}
+}

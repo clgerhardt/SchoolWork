@@ -1,0 +1,6 @@
+1479315972904	Encapsulate field 'code'
+1479316919893	Encapsulate field 'lat'
+1479316932500	Encapsulate field 'longt'
+1479316939128	Encapsulate field 'city'
+1479316945377	Encapsulate field 'state'
+1479444605963	Infer generic type arguments

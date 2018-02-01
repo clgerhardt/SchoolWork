@@ -1,0 +1,577 @@
+package prob1;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+//import prob1.Triangle;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
+//import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
+
+public class Main extends Application {
+	protected MartianManager Martians = new MartianManager();
+	//private ArrayList<Martian> martians = new ArrayList<>();
+	protected TextArea txaMessage;
+	protected TextField txfValue1, txfValue2, txfValue3;
+	protected ToggleGroup tGrpMartianChoice = new ToggleGroup();
+	protected Label lbl1, lbl2, lbl3, lbl4;
+	protected Button btnAddMartian,btnGroupSpeak,btnGetMartian,btnGroupTeleport;
+	protected Button btnRemoveMartian, btnChangeVol;
+ 	protected ComboBox<String> cmbMartian;
+	private Button btnRemoveAll;
+	private Button btnReadMartians;
+	private final String PATH = "src/prob1";
+
+
+	public void start(Stage primaryStage) {
+		Pane grdRootPane = buildGuiPane(primaryStage);
+		Scene scene = new Scene(grdRootPane, 400, 500);
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("HW 5 - Problem 1");
+		primaryStage.show();
+	}
+
+	private Pane buildGuiPane(Stage stage) {
+
+		Pane topRow = buildTopRow();
+		Pane buttonRow = buildButtonRow(stage);
+		Pane messageRow = buildMessageRow();
+
+		// Main gui is a VBox, put the three rows in.
+		VBox pane = new VBox();
+		pane.setPadding(new Insets(10, 10, 10, 10));
+		pane.setSpacing(10);
+		pane.getChildren().addAll(topRow, buttonRow, messageRow);
+
+		return pane;
+	}
+
+	private Pane buildTopRow() {
+		VBox vboxMartian = new VBox();
+		vboxMartian.setSpacing(10);
+		vboxMartian.setPadding(new Insets(25,25,25,25));
+
+		Label lblSelectedMartian = new Label("Select Martian");
+		vboxMartian.getChildren().add(lblSelectedMartian);
+
+		MartianChoiceEventHandler cmbShapeEventHandler = new MartianChoiceEventHandler();
+
+		RadioButton rbRedMartian = new RadioButton("Red Martian");
+		rbRedMartian.setToggleGroup(tGrpMartianChoice);
+		rbRedMartian.setSelected(true);
+		rbRedMartian.setOnAction(cmbShapeEventHandler);//do this
+		vboxMartian.getChildren().add(rbRedMartian);
+
+		RadioButton rbGreenMartian = new RadioButton("Green Martian");
+		rbGreenMartian.setToggleGroup(tGrpMartianChoice);
+		rbGreenMartian.setOnAction(cmbShapeEventHandler);//do this
+		vboxMartian.getChildren().add(rbGreenMartian);
+
+		GridPane gridMartianInfo = new GridPane();
+		gridMartianInfo.setVgap(5);
+
+		Label lblEnterValues = new Label("Enter Values");
+		lblEnterValues.setFont(Font.font(null, FontWeight.BOLD,16));
+		gridMartianInfo.add(lblEnterValues, 0, 0);
+
+		lbl1 = new Label("Id:");
+		gridMartianInfo.add(lbl1, 0, 1);
+		txfValue1 = new TextField();
+		gridMartianInfo.add(txfValue1, 1, 1);
+
+		lbl2 = new Label("Volume:");
+		gridMartianInfo.add(lbl2, 0, 2);
+		txfValue2 = new TextField();
+		gridMartianInfo.add(txfValue2, 1, 2);
+
+		lbl3 = new Label("Destination:");
+		gridMartianInfo.add(lbl3, 0, 3);
+		txfValue3 = new TextField();
+		gridMartianInfo.add(txfValue3, 1, 3);
+
+		HBox topRow = new HBox();
+		topRow.setAlignment(Pos.TOP_LEFT);
+		topRow.setSpacing(20);
+
+		topRow.getChildren().addAll(vboxMartian, gridMartianInfo);
+
+		return topRow;
+	}
+
+	private Pane buildButtonRow(Stage stage) {
+		//First row
+		HBox hboxButtons = new HBox();
+		hboxButtons.setSpacing(5.0);
+		hboxButtons.setAlignment(Pos.CENTER);
+
+		btnAddMartian = new Button("Create Martian");
+		hboxButtons.getChildren().add(btnAddMartian);
+		CreateMartianEventHandler btnEventHandler = new CreateMartianEventHandler();
+		btnAddMartian.setOnAction(btnEventHandler);
+
+		btnGroupSpeak = new Button("Group Speak");
+		hboxButtons.getChildren().add(btnGroupSpeak);
+		SpeakingMartianEventHandler btnSpeakingEventHandler = new SpeakingMartianEventHandler();
+		btnGroupSpeak.setOnAction(btnSpeakingEventHandler);
+
+		btnGetMartian = new Button("Get Martian");
+		hboxButtons.getChildren().add(btnGetMartian);
+		GetMartianEventHandler btnGetMEventHandler = new GetMartianEventHandler();
+		btnGetMartian.setOnAction(btnGetMEventHandler);
+
+		btnGroupTeleport = new Button("Group Teleport");
+		hboxButtons.getChildren().add(btnGroupTeleport);
+		TeleportMartianEventHandler btnTeleEventHandler = new TeleportMartianEventHandler();
+		btnGroupTeleport.setOnAction(btnTeleEventHandler);
+
+		//second row
+		HBox hboxButtons2 = new HBox();
+		hboxButtons2.setSpacing(5.0);
+		hboxButtons2.setAlignment(Pos.CENTER);
+
+		btnRemoveAll = new Button("Remove All");
+		hboxButtons2.getChildren().add(btnRemoveAll);
+		btnRemoveAll.setOnAction(e ->{
+			Martians.clearMartians();
+			cmbMartian.getItems().clear();
+			txaMessage.setText("");
+		});
+
+		btnReadMartians = new Button("Read Martians");
+		hboxButtons2.getChildren().add(btnReadMartians);
+		ReadMartianEventHandler btnReadMartiansEventHandler = new ReadMartianEventHandler(stage);
+		btnReadMartians.setOnAction(btnReadMartiansEventHandler);
+		
+		HBox hboxButtons3 = new HBox();
+		hboxButtons3.setSpacing(5.0);
+		hboxButtons3.setAlignment(Pos.CENTER);
+		
+		btnRemoveMartian = new Button("Remove Martian");
+		hboxButtons3.getChildren().add(btnRemoveMartian);
+		RemoveaMartianEventHandler btnRemoveaMartianEventHandler = new RemoveaMartianEventHandler();
+		btnRemoveMartian.setOnAction(btnRemoveaMartianEventHandler);
+		
+		lbl4 = new Label("Martians List");
+		hboxButtons3.getChildren().add(lbl4);
+		
+		cmbMartian = new ComboBox<>();	
+		cmbMartianEventHandler btncmbMartianEventHandler = new cmbMartianEventHandler();
+		cmbMartian.setOnAction(btncmbMartianEventHandler);
+		hboxButtons3.getChildren().add(cmbMartian);
+		
+
+		btnChangeVol = new Button("Change Vol");
+		hboxButtons3.getChildren().add(btnChangeVol);
+		ChangeVolEventHandler btnChangeVolEventHandler = new ChangeVolEventHandler();
+		btnChangeVol.setOnAction(btnChangeVolEventHandler);
+		
+		VBox buttonRow = new VBox();
+		buttonRow.setSpacing(10);
+		buttonRow.getChildren().addAll(hboxButtons,hboxButtons2,hboxButtons3);
+
+		return buttonRow;
+	}
+
+	private Pane buildMessageRow(){
+		HBox hBoxMessage = new HBox();
+		hBoxMessage.setAlignment(Pos.CENTER);
+		txaMessage =  new TextArea();
+		txaMessage.setEditable(false);
+		txaMessage.setPrefColumnCount(30);
+		txaMessage.setPrefRowCount(15);
+		hBoxMessage.getChildren().add(txaMessage);
+
+		return hBoxMessage;
+	}
+
+	private class CreateMartianEventHandler implements EventHandler<ActionEvent> {
+
+		public void handle(ActionEvent event) {
+			
+			RadioButton rad = (RadioButton) tGrpMartianChoice.getSelectedToggle();
+
+			String strMartians = rad.getText();
+			
+			String printing = "";
+			
+			switch(strMartians){
+			
+				case "Red Martian":
+					System.out.println("Creating a Red Martian");
+					RedMartian m = null;
+					
+					int id = Integer.parseInt(txfValue1.getText());
+					String vol = (txfValue2.getText());
+					if(txfValue2.getText() == null || txfValue2.getText().equals("")){
+						m = new RedMartian(id,1);
+					}
+					else{
+						int newVol = Integer.parseInt(vol);
+						m = new RedMartian(id,newVol);
+					}
+					if(Martians.addMartian(m)){
+					cmbMartian.getItems().add(m.toString2());
+					printing += m.toString();
+					}
+					else{
+						printing += "Deplicate was attempted, martian not created";
+					}
+					
+					 
+					break;
+				case "Green Martian":
+					System.out.println("Creating a Green Martian");
+					GreenMartian m2 = null;
+					int id2 = Integer.parseInt(txfValue1.getText());
+					String vol2 = (txfValue2.getText());
+					if(txfValue2.getText() == null || txfValue2.getText().equals("")){
+						m2 = new GreenMartian(id2,1);
+					}
+					else{
+						int newVol2 = Integer.parseInt(vol2);
+						m2 = new GreenMartian(id2,newVol2);
+					}
+					
+					if(Martians.addMartian(m2)){
+					cmbMartian.getItems().add(m2.toString2());
+					printing += m2.toString();
+					}
+					else{
+						printing += "Deplicate was attempted, martian not created";
+					}
+					
+					
+					break;
+			}
+
+			txaMessage.setText(printing);
+			
+			//erase fields
+			txfValue1.setText(null);
+			txfValue2.setText(null);
+			txfValue3.setText(null);
+
+
+
+		}
+	}
+	private class SpeakingMartianEventHandler implements EventHandler<ActionEvent> {
+		public void handle(ActionEvent event) {
+			String printing = " ";
+			printing += "Speaking Martians:\n";
+			
+			printing+=(Martians.groupSpeak());
+
+			txaMessage.setText(printing);
+
+			// Erase fields
+			txfValue1.setText(null);
+			txfValue2.setText(null);
+			txfValue3.setText(null);
+		}
+	}
+
+	private class GetMartianEventHandler implements EventHandler<ActionEvent> {
+		public void handle(ActionEvent event) {
+			String printing = " ";
+			printing += "Getting Specific Martian: \n";
+			
+			int getMar = Integer.valueOf(txfValue1.getText());
+			//System.out.println(getMar);
+			//printing += "after parse \n";
+			Martian getM = Martians.getMartian(getMar);
+			//System.out.println(getM);
+			printing += getM.toString();
+			//printing += getM.speak();
+			
+			txaMessage.setText(printing);
+			
+			// Erase fields
+			txfValue1.setText(null);
+			txfValue2.setText(null);
+			txfValue3.setText(null);
+		}
+	}
+
+	private class TeleportMartianEventHandler implements EventHandler<ActionEvent> {
+		public void handle(ActionEvent event) {
+			String printing = "";
+			
+			String dest = (txfValue3.getText());
+			
+			printing += "Teleporting Martians\n";
+			printing+=(Martians.groupTeleport(dest));
+			
+			txaMessage.setText(printing);
+
+			// Erase fields
+			txfValue1.setText(null);
+			txfValue2.setText(null);
+			txfValue3.setText(null);
+
+		}
+	}
+	
+	private class RemoveaMartianEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			String printing = " ";
+			printing += "Martian Removed";
+			
+			int getMar = Integer.valueOf(txfValue1.getText());
+			
+			cmbMartian.getItems().removeAll(Martians.getMartian(getMar).toString2());
+			
+			Martians.removeMartian(getMar);
+			
+			
+			
+			txaMessage.setText(printing);
+			
+			// Erase fields
+			txfValue1.setText(null);
+			txfValue2.setText(null);
+			txfValue3.setText(null);
+
+			
+		}
+	}
+	
+	private class ChangeVolEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event) {
+			String printing = " ";
+			printing += "Changing Volume: \n";
+			
+			int getMar = Integer.valueOf(txfValue1.getText());
+			int newVol = Integer.valueOf(txfValue2.getText());
+			//System.out.println(getMar);
+			//printing += "after parse \n";
+			printing += "Before:";
+			Martian getM = Martians.getMartian(getMar);
+			printing += getM.toString();
+			getM.setVolume(newVol);
+			printing += " After:";
+			printing += getM.toString();
+			
+			txaMessage.setText(printing);
+			
+			// Erase fields
+			txfValue1.setText(null);
+			txfValue2.setText(null);
+			txfValue3.setText(null);
+		}
+	}
+
+	private class ReadMartianEventHandler implements EventHandler<ActionEvent> {
+		Stage stage;
+
+		public ReadMartianEventHandler(Stage stage) {
+			super();
+			this.stage = stage;
+		}
+		public void handle(ActionEvent event) {
+			File file = getInFile(stage);
+			if (file != null) {
+				try {
+					readMartianFile(file);
+					txaMessage.setText("readMartianFile() called successfully\n");
+					//txaMessage.appendText("You need to write the code in that method");
+				} catch (FileNotFoundException e) {
+					txaMessage.setText("Error reading file");
+					e.printStackTrace();
+				}
+
+			}
+		}
+	}
+
+	private class MartianChoiceEventHandler implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			RadioButton rb = (RadioButton) event.getSource();
+
+			String Martian = rb.getText();
+
+			switch (Martian) {
+			case "Red Martian":
+				System.out.println("Red Martian");
+				showRedMartianEntry();
+				break;
+			case "Green Martian":
+
+				System.out.println("Green Martian");
+				showGreenMartianEntry();
+				break;
+
+			}
+		}
+	}
+	
+	private class cmbMartianEventHandler implements EventHandler<ActionEvent>{
+		public void handle(ActionEvent event){
+						
+			String printing = " ";
+
+			String cmbString = cmbMartian.getValue();
+			//printing += cmbString;
+			String[] parts = cmbString.split("-");
+			
+			String id = parts[0];
+			String color = parts[1];
+			if(color.equals("Green")){
+				Martian m = Martians.getMartian(Integer.valueOf(id));
+				printing += m.toString();
+			}
+			if(color.equals("Red")){
+				Martian m = Martians.getMartian(Integer.valueOf(id));
+			printing += m.toString();
+			}	
+			
+			txaMessage.setText(printing);
+			
+			
+
+		}
+	}
+	private File getInFile(Stage stage) {
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+		fileChooser.getExtensionFilters().add(extFilter);
+		File initPath = new File(PATH);
+		fileChooser.setInitialDirectory(initPath);
+		File file = fileChooser.showOpenDialog(stage);
+		System.out.println(file);
+		return file;
+
+	}
+
+	private void readMartianFile(File file) throws FileNotFoundException {
+
+		File inFile = new File("src/prob1/Martians.txt");
+		String printing = " ";
+		try {
+			Scanner input = new Scanner(inFile);
+			
+			while (input.hasNext()) {
+				String token = input.next();
+				if(token.equals("R")){
+					int id = input.nextInt();
+					if(input.hasNextInt()){
+						int vol = input.nextInt();
+						RedMartian NewR = new RedMartian(id,vol);
+						if(Martians.addMartian(NewR)){
+						cmbMartian.getItems().add(NewR.toString2());
+						
+						}
+						else{
+							printing = "Deplicate was attempted, martian not created";
+						}
+						
+					}
+					else{
+						RedMartian NewR = new RedMartian(id,1);
+						if(Martians.addMartian(NewR)){
+							cmbMartian.getItems().add(NewR.toString2());
+						}
+						else{
+							printing = "Deplicate was attempted, martian not created";
+						}
+
+					}
+				}
+				if(token.equals("G")){
+					int id = input.nextInt();
+					if(input.hasNextInt()){
+						int vol = input.nextInt();
+						GreenMartian NewG = new GreenMartian(id, vol);
+						
+						if(Martians.addMartian(NewG)){
+							cmbMartian.getItems().add(NewG.toString2());
+						}
+						else{
+							printing = "Deplicate was attempted, martian not created";
+						}
+
+					}
+					else{
+						GreenMartian NewG = new GreenMartian(id,1);
+						
+						if(Martians.addMartian(NewG)){
+							cmbMartian.getItems().add(NewG.toString2());
+						}
+						else{
+							printing = "Deplicate was attempted, martian not created";
+						}
+
+					}
+					
+				}
+			}
+			input.close();
+			txaMessage.setText(printing);
+			
+
+		} catch (IOException e) {
+			System.out.println(e);
+		}
+
+	}
+
+	private void showRedMartianEntry() {
+		lbl1.setVisible(true);
+		lbl1.setText("Id:");
+		txfValue1.setVisible(true);
+
+		lbl2.setVisible(true);
+		lbl2.setText("Volume:");
+		txfValue2.setVisible(true);
+
+		lbl3.setVisible(false);
+		txfValue3.setVisible(false);
+
+		btnAddMartian.setText("Create Red Martian");
+	}
+
+	private void showGreenMartianEntry() {
+		lbl1.setVisible(true);
+		lbl1.setText("ID:");
+		txfValue1.setVisible(true);
+
+		lbl2.setVisible(true);
+		lbl2.setText("Volume:");
+		txfValue2.setVisible(true);
+
+		lbl3.setVisible(true);
+		lbl3.setText("Destination:");
+		txfValue3.setVisible(true);
+
+		btnAddMartian.setText("Create Green Martian");
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
+}

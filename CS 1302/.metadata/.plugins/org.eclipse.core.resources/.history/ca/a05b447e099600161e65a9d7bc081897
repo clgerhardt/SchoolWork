@@ -1,0 +1,16 @@
+package recursion_examples;
+
+public class PrintExamples {
+
+	public static void main(String[] args) {
+		recursivePrint1(3);
+		System.out.println();
+	}
+
+	private static void recursivePrint1(int n) {
+		if( n > 0 ){
+			System.out.print( n + " ");
+			recursivePrint1(n-1);
+		}
+	}
+}

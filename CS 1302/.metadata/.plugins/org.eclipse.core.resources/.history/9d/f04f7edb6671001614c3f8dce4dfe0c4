@@ -1,0 +1,14 @@
+package prob2;
+
+public class WordReverse {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println(reverse("Christian Gerhardt is"));
+	}
+public static String reverse(String str){
+  int i = str.indexOf(" ");
+  return str.substring(i);
+	//return i == -1 ? str : reverse(str.substring(i+1)) + " " + str.substring(0, i);
+ }
+}

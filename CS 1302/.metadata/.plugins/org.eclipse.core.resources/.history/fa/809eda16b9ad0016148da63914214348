@@ -1,0 +1,40 @@
+package prob1;
+
+import java.io.IOException;
+import java.util.*;
+
+public class AirportDriver {
+
+	public static void main(String[] args) throws IOException {
+
+		String airportFileSmall = "airportFileSmall.txt";
+		String airportFileMedium = "airportFileMedium.txt";
+		String airportFileSameCities = "airportFileSameCities.txt";
+		List<Airport> airports;
+		double dist;
+		Airport a1, a2;
+
+		// Test 1
+		System.out.println("here");
+		airports = AirportLoader.getAirportList(airportFileSmall);
+		System.out.println("here");
+		System.out.println("Test 1: AirportLoader.getAirportList()\n");
+		print(airports);
+		System.out.println("here");
+		
+		AirportManager airportManager;
+		airports = AirportLoader.getAirportList(airportFileSmall);
+		airportManager = new AirportManager(airports);
+		System.out.println("here");
+		System.out.println(airportManager);
+
+
+
+	}
+
+	public static void print(List<Airport> airports){
+		for( Airport a : airports )
+			System.out.println(a);
+	}
+
+}

@@ -1,0 +1,95 @@
+package extraCredit;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+import javax.swing.*;
+@SuppressWarnings("serial")
+public class main extends JFrame{
+	
+	public static HashMap<String, Integer> map = new HashMap<>();
+	public static int[][] a = new int[7][7];
+
+	public main(String[] args) {	
+//		GUI();
+		
+
+		
+		map.put("A", 0);
+		map.put("B", 1);
+		map.put("C", 2);
+		map.put("D", 3);
+		map.put("E", 4);
+		map.put("F", 5);
+		map.put("G", 6);
+		
+		for(int r = 0;r<a.length;r++) {
+			for(int c = 0; c < a.length; c++) {
+				
+				a[r][c] = 0;
+				
+			}
+		}
+				
+//		for(int r = 0;r<a.length;r++) {
+//			System.out.println("");
+//			for(int c = 0; c < a.length; c++) {
+//				
+//				System.out.print(a[r][c]);
+//				
+//			}
+//		}
+
+		Scanner input = new Scanner(System.in);
+		String i = input.nextLine();
+		String j = input.nextLine();
+		i.toUpperCase();
+		j.toUpperCase();
+	
+		Add(i,j);
+		input.close();
+	
+		for(int r = 0;r<a.length;r++) {
+		System.out.println("");
+		for(int c = 0; c < a.length; c++) {
+			
+			System.out.print(a[r][c]);
+			
+		}
+	}
+		
+		
+			
+	}
+	
+public static void Add(String i, String j) {
+	
+	a[map.get(i)][map.get(j)] = 1;
+	a[map.get(j)][map.get(i)] = 1;
+ 	
+	
+}
+
+
+
+public static void GUI(){
+	
+	JFrame f =  new JFrame();
+	JPanel newPanel = new JPanel();
+	JButton b = new JButton("Button");
+	JLabel l = new JLabel("Label");
+	l.setBackground(Color.MAGENTA);
+	
+	f.setVisible(true);
+	f.setSize(600,400);
+	
+	newPanel.setBackground(Color.DARK_GRAY);
+
+	newPanel.add(b,l);
+	
+	f.add(newPanel,BorderLayout.SOUTH);
+	
+ } 
+}

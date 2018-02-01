@@ -1,0 +1,17 @@
+package prob1;
+
+import java.io.File; 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class AirportLoader {
+
+	// Write this method. It should read the airport file and return
+	// a list of Airports.
+	public static List<Airport> getAirportList(String fileName){
+		
+
+	}
+}

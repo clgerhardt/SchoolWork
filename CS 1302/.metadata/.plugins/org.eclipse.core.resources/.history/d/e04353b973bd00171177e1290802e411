@@ -1,0 +1,19 @@
+package extraCredit;
+
+import java.lang.reflect.Array;
+
+*;
+
+public class Arrayofarrays {
+	
+	Array x = new Array();
+	Arrayofarrays(){
+		this.x;
+	}
+	Arrayofarrays(){
+	 
+	}
+	
+	
+
+}

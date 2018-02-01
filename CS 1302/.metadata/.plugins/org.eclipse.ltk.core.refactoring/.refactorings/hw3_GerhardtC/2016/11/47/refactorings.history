@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy 4 elements to &apos;hw6_GerhardtC/src/prob2&apos;&#x0A;- Original project: &apos;hw3_GerhardtC&apos;&#x0A;- Destination element: &apos;hw6_GerhardtC/src/prob2&apos;&#x0A;- Original elements:&#x0A;     prob1.GreenMartian.java&#x0A;     prob1.ITeleporter.java&#x0A;     prob1.RedMartian.java&#x0A;     prob1.Martian.java" description="Copy compilation units" destination="=hw6_GerhardtC/src&lt;prob2" element1="/src&lt;prob1{GreenMartian.java" element2="/src&lt;prob1{ITeleporter.java" element3="/src&lt;prob1{RedMartian.java" element4="/src&lt;prob1{Martian.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1479163656568" units="4" version="1.0"/>
+</session>

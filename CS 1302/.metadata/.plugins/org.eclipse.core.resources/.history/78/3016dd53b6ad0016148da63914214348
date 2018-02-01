@@ -1,0 +1,26 @@
+package prob1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AirportManager {
+	
+	private List<Airport> AirportManagerList;
+
+	public AirportManager (List<Airport> AirportManagerList){
+		AirportManagerList = new ArrayList<>();
+	}
+	
+	public Airport getAirport(String code){
+		return null;
+	}
+	
+	public String toString(){
+		String result = " ";
+		for(Airport a: AirportManagerList){
+			result += a.toString() + "\n";
+		}
+		return result;
+	}
+
+}

@@ -1,0 +1,101 @@
+package numebers;
+import java.util.Arrays;
+public class Numbers123 {
+
+
+	
+
+
+		public static void main(String[] args) {
+
+			int[] coins = {1, 5, 10, 25};
+
+			int[] minCoins = solve(coins, 32);
+
+			System.out.println(Arrays.toString(minCoins));
+		}
+
+
+
+		public static int[] solve(int[] coins, int total) {
+
+			// solve for each value 0 to total
+			int[] solved = new int[total + 1];
+
+			// 0 coins needed to reach value of 0
+			solved[0] = 0;
+
+			// Unknown values
+			for (int i = 1; i < solved.length; i++) {
+				solved[i] = -1;
+			}
+
+			// Solve for each value up to total
+			for (int i = 1; i < solved.length; i++) {
+				System.out.println("Solving for " + i);
+
+				int minCoins = -1;
+
+				for (int j = 0; j < coins.length; j++) {
+
+					System.out.println("Min # before using " + coins[j] + " = " + minCoins);
+
+					// If the coin is too large for this value
+					if (coins[j] > i) {
+
+						continue;
+
+					// If we only need one coin to get to this value
+					} else if (coins[j] == i) {
+
+						minCoins = 1;
+						break;
+
+					// Otherwise, find the solution the coin we are currently at
+					} else {
+
+						// If we haven't found a solution for our value yet,
+						// then take the first solution we come across
+						if (minCoins == -1) {
+
+							// If the solution using this coin can't be done,
+							// skip this coin
+							if (solved[i - coins[j]] == -1) {
+								continue;
+							} else {
+
+								// Any valid solution is better than our -1 solution
+								minCoins = 1 + solved[i - coins[j]];
+							}
+
+						// Take the min of our current solution and the solution
+						// using the coin we are at
+						} else {
+
+							// If using this coin can't be done, skip it
+							if (solved[i - coins[j]] == -1) {
+								continue;
+							} else {
+								// If we can use this coin, take the best solution from
+								// using it and our previous best solution
+								minCoins = Math.min(minCoins, 1 + solved[i - coins[j]]);
+							}
+
+						}
+
+					}
+
+					System.out.println("Min # after using " + coins[j] + " = " + minCoins);
+
+				}
+
+				solved[i] = minCoins;
+
+			}
+
+			return solved;
+		}
+
+	}
+
+

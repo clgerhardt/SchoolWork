@@ -1,0 +1,38 @@
+package prob3;
+
+public class Store {
+	private Employee[] emps = new Employee[20];
+	private int numEmps = 0;
+
+	public Employee getEmps(int i) {
+		if (i < emps.length) {
+			return emps[i];
+		}
+		return null;
+	}
+
+	public int getNumEmps(int i) {
+
+		return numEmps;
+	}
+
+	public void addEmp(Employee e) {
+		if (numEmps < emps.length) {
+			emps[numEmps++] = e;
+		}
+	}
+
+	public double totalHours() {
+		double sum = 0.0;
+		for (int i = 0; i < emps.length; i++) {
+		
+		}
+
+	   return sum;
+	}
+
+	public String toString() {
+		return "Num Employees: " + getNumEmps(numEmps) + "" + getClass() + "Total Hours Worked = " + totalHours();
+	}
+
+}

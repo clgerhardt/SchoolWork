@@ -1,0 +1,34 @@
+package prob1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AirportManager {
+	
+	private List<Airport> AirportManagerList = new ArrayList<>();
+
+	public AirportManager (List<Airport> AirportManagerList){
+		this.AirportManagerList = AirportManagerList;
+	}
+	
+	public Airport getAirport(String code){
+		int indexOfAirport = 0;
+		Airport DummyA = new Airport(code);
+		for(int i = 0; i < AirportManagerList.size();i++){
+			if(AirportManagerList.get(i).getCode()==(DummyA.getCode())){
+				indexOfAirport = AirportManagerList.indexOf(i);
+			}
+		}
+		
+		return AirportManagerList.get(indexOfAirport);
+	}
+	
+	public String toString(){
+		String result = "The Manager list: \n";
+		for(Airport a: AirportManagerList){
+			result += a.toString() + "\n";
+		}
+		return result;
+	}
+
+}

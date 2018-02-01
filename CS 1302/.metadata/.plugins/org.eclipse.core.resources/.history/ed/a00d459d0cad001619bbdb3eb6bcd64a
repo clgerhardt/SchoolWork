@@ -1,0 +1,29 @@
+package treeset_examples;
+
+import java.io.FileNotFoundException;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
+
+public class TreeSetExamples {
+	public static void main(String[] args) throws FileNotFoundException {
+ 		tsExamples1();
+	}
+
+	public static void tsExamples1() {
+		System.out.println("TreeSet Example 1\n-----------------");
+
+		Set<String> tsCities = new TreeSet<String>();
+		tsCities.add("New York");
+		tsCities.add("Atlanta");
+		tsCities.add("Durango");
+		tsCities.add("Moab");
+		System.out.println("                   Order cities added: New York, Atlanta, Durango, Moab");
+
+		System.out.print("Access cities (ordered) with for loop: ");
+		for(String city : tsCities) {
+			System.out.print(city + ", ");
+		}
+		System.out.println();
+	}
+}

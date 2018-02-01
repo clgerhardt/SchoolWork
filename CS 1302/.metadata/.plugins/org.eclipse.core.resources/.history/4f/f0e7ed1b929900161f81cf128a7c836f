@@ -1,0 +1,8 @@
+package application;
+
+public class Snippet {
+	int id = input.nextInt();
+	int vol = input.nextInt();
+	Martians.addMartian(new RedMartian(id, vol));
+}
+

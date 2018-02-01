@@ -1,0 +1,9 @@
+package application;
+
+public interface ITeleporter {
+	
+	 String teleport(String dest);
+	 
+	 
+
+}

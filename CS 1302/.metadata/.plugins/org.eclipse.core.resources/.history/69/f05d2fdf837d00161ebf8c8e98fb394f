@@ -1,0 +1,26 @@
+package prob2;
+
+public class Item {
+protected String item;
+protected double weight;
+
+public Item (String item, Double weight){
+	this.item = item;
+	this.weight = weight;
+}
+public double cost(){
+	return weight;
+	
+}
+public String getName(){
+	return item;
+}
+public Double getWeight(){
+	return weight;
+}
+public String toString (){
+	String result = "";
+	return result;
+}
+
+}

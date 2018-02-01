@@ -1,0 +1,52 @@
+package prob1;
+
+import java.io.File;   
+//import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class AirportLoader {
+
+	// Write this method. It should read the airport file and return
+	// a list of Airports.
+	public static List<Airport> getAirportList(String fileName) throws IOException{
+		
+		List<Airport> AirportList = new ArrayList<>();
+		
+		File inFile = new File("src/prob1/airportFileSmall.txt");
+		
+		try{
+		Scanner input = new Scanner(inFile);
+		while(input.hasNext()){
+			String code = input.next();
+			if(!AirportList.contains(code)){
+				
+				Double lat = input.nextDouble();
+				Double longt = input.nextDouble();
+				String city = input.next();
+				String state = input.next();
+				
+				AirportList.add(new Airport(code, lat,longt,city,state));
+				
+			}
+			else{
+				
+				for(int i = 0; i <= 4; i++){
+					input.hasNext();
+				}
+
+			}
+			
+			//String code = input.next();	
+		}
+		input.close();
+		}
+		catch (IOException e) {
+			System.out.println(e);
+		}
+		System.out.println(AirportList);
+		return AirportList;
+	}
+}

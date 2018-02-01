@@ -1,0 +1,185 @@
+
+//Christian Gerhardt CS3410
+//Fall 2017
+//ExtraCredit Assignment
+package extraCredit;
+
+//import java.awt.*; 
+import java.util.HashMap;
+//import java.util.Map;
+import java.util.Scanner;
+import java.util.Set;
+
+import javax.swing.*;
+
+public class main extends JFrame {
+
+	public static HashMap<String, Integer> map = new HashMap<>();
+	public static int[][] a = new int[7][7];
+
+	public static void main(String[] args) {
+
+		map.put("A", 0);
+		map.put("B", 1);
+		map.put("C", 2);
+		map.put("D", 3);
+		map.put("E", 4);
+		map.put("F", 5);
+		map.put("G", 6);
+
+		for (int r = 0; r < a.length; r++) {
+			for (int c = 0; c < a.length; c++) {
+
+				a[r][c] = 0;
+
+			}
+		}
+		
+		//Assign connections
+		a[0][1] = 1;
+		a[0][2] = 1;
+		a[0][4] = 1;
+		a[0][5] = 1;
+		a[0][6] = 1;
+		
+		
+
+		Scanner input = new Scanner(System.in);
+		boolean x = false;
+		do {
+
+			System.out.println("\n                          Your Graph:");
+			System.out.println("***************************************************************************");
+			System.out.println("****************Enter a number(1-6) to make a selection:*******************");
+			System.out.println("********To make a node selection, chose between letter A through G.********");
+			System.out.println("i)   Degree of Nodes");
+			System.out.println("ii)  Display list of Adjacent nodes to selected nodes");
+			System.out.println("iii) Drop an edge between nodes");
+			System.out.println("iv)  Add an edge between nodes");
+			System.out.println("v)   Print the adjacency matrix");
+			System.out.println("vi)  Quit");
+			System.out.println("***************************************************************************");
+
+			int i = input.nextInt();
+
+			switch (i) {
+			// Display Degree of Node
+			case 1:
+				System.out.println("Select the Node:");
+				String k = input.next();
+				int deg = 0;
+				for (int o = map.get(k.toUpperCase()); o < map.get(k.toUpperCase()) + 1; o++) {
+					for (int y = 0; y < a.length; y++) {
+						if (a[o][y] == 1) {
+							deg++;
+						}
+					}
+				}
+
+				System.out.println(deg);
+				break;
+			// display list of nodes adjacent to chosen node
+			case 2:
+				System.out.println("Select the Node:");
+				System.out.println("List of Adjacent Nodes:");
+				String t = input.next();
+				for (int o = map.get(t.toUpperCase()); o < map.get(t.toUpperCase()) + 1; o++) {
+					for (int y = 0; y < a.length; y++) {
+						if (a[o][y] == 1) {
+							if (y == 0) {
+								System.out.println("A" + ",");
+							}
+							if (y == 1) {
+								System.out.println("B"+ ",");
+							}
+							if (y == 2) {
+								System.out.println("C"+ ",");
+							}
+							if (y == 3) {
+								System.out.println("D"+ ",");
+							}
+							if (y == 4) {
+								System.out.println("E"+ ",");
+							}
+							if (y == 5) {
+								System.out.println("F"+ ",");
+							}
+							if (y == 6) {
+								System.out.println("G"+ ",");
+							}
+						}
+					}
+				}
+
+				break;
+			// Drop and edge between nodes
+			case 3:
+				System.out.println("Enter the frist Node:");
+				String h = input.next();
+				System.out.println("Enter the second Node:");
+				String u = input.next();
+				if(a[map.get(h.toUpperCase())][map.get(u.toUpperCase())]==0) {
+					System.out.println("These nodes connection was already dropped.");
+				}
+				else {
+					a[map.get(h.toUpperCase())][map.get(u.toUpperCase())] = 0;
+					a[map.get(u.toUpperCase())][map.get(h.toUpperCase())] = 0;
+				}
+
+
+				break;
+			// add and edge between nodes
+			case 4:
+				System.out.println("Enter the frist Node:");
+				String n = input.next();
+				System.out.println("Enter the second Node:");
+				String g = input.next();
+				if(a[map.get(n.toUpperCase())][map.get(g.toUpperCase())]==1) {
+					System.out.println("These nodes are already connected.");
+				}
+				else{
+					a[map.get(n.toUpperCase())][map.get(g.toUpperCase())] = 1;
+					a[map.get(g.toUpperCase())][map.get(n.toUpperCase())] = 1;
+				}
+
+
+				break;
+			// Print it out
+			case 5:
+			Set<String> m = map.keySet();
+			String [] s = new String[7];
+			m.toArray(s);
+				System.out.println("Adjacency Matrix, the number 1 represents a connection,");
+				System.out.println("the number 0 represents a disconnection.");
+				for(int q = 0; q < s.length;q++) {
+					if(s[q]=="A") {
+						System.out.printf("%3s", s[q]);
+					}
+					else {
+						System.out.printf("%2s", s[q]);
+				
+					}
+				}
+				for (int r = 0; r < a.length; r++) {
+					System.out.print( "\n" + s[r] + " ");
+					for (int c = 0; c < a.length; c++) {
+
+						System.out.print( a[r][c] + " ");
+						
+					}
+					
+				}
+
+				
+
+				break;
+			// Quit
+			case 6:
+				System.out.println("End of App.");
+				x = true;
+				break;
+			}
+		} while (x == false);
+
+	}
+}

@@ -1,0 +1,47 @@
+package lab9_GerhardtC;
+
+import java.util.ArrayList;
+
+public class ArrayListExamples {
+
+
+	public static void main(String[] args) {
+System.out.println("ArrayList Examples\n");
+		example1();
+	}
+	
+	// Illustrates addAll, retainAll, removeAll methods
+	private static void example1() {
+	    System.out.println("example1()-illustrates addAll, retainAll, removeAll methods)");
+	    System.out.println("------------------------------------------------------------");
+	    ArrayList<String> cities = new ArrayList<String>();
+	    cities.add("New York"); 
+	    cities.add("San Francisco"); 
+	    System.out.println("cities: " + cities);
+	    
+		// Create another ArrayList of cities
+	    ArrayList<String> cities2 = new ArrayList<>();
+	    cities2.add("Charlotte");
+	    cities2.add("Atlanta");
+	    System.out.println("cities2: " + cities2);
+	    
+	    // addAll() - Adds all the elements of "cites2" to "cities1".
+	    // This is the union of two lists.
+	    cities.addAll(cities2);
+	    System.out.println("cities after cities.addAll(cities2): " + cities);
+	    
+	 // Create another ArrayList of cities
+	    ArrayList<String> cities3 = new ArrayList<>();
+	    cities3.add("Charlotte");
+	    cities3.add("Durango");
+	    cities3.add("New York");
+	    System.out.println("\ncities: " + cities);
+	    System.out.println("cities3: " + cities3);
+
+	    // retainAll() - This method takes the intersection of the two lists
+	    // and stores the result in "cities".
+	    cities.retainAll(cities3);
+	    System.out.println("cities after cities.retainAll(cities3):" + cities);
+
+	}
+}

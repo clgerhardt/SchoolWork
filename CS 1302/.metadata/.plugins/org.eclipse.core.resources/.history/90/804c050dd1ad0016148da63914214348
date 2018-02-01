@@ -1,0 +1,90 @@
+package prob1;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class AirportManager {
+	
+	private List<Airport> AirportManagerList = new ArrayList<>();
+
+	public AirportManager (List<Airport> AirportManagerList){
+		this.AirportManagerList = AirportManagerList;
+	}
+	
+	public Airport getAirport(String code){
+		int indexOfAirport = 0;
+		Airport DummyA = new Airport(code);
+		for(Airport a : AirportManagerList){
+			//System.out.println(a + "|||||| " + DummyA);
+			if((a).getCode().equals(DummyA.getCode())){
+				indexOfAirport = AirportManagerList.indexOf(a);
+			}
+		}
+		
+		return AirportManagerList.get(indexOfAirport);
+	}
+	
+	public double getDistanceBetween(Airport airport1, Airport airport2){
+		return DistanceCalculator.getDistance(airport1.getLat(),airport1.getLongt(),airport2.getLat(),airport2.getLongt());
+	}
+	
+	public double getDistanceBetween(String code1, String code2){
+		
+		Airport airport1 = this.getAirport((code1));
+		Airport airport2 = this.getAirport((code2));
+		
+		return DistanceCalculator.getDistance(airport1.getLat(),airport1.getLongt(),airport2.getLat(),airport2.getLongt());
+
+	}
+	
+	public Airport getAirportClosestTo(String code){
+		
+		Airport airport1 = this.getAirport((code));
+		double minDiff = Integer.MAX_VALUE;
+		Airport closea = null;
+		for(Airport a : AirportManagerList ){
+			if(!(a).getCode().equals(airport1.getCode())){
+				double distance = DistanceCalculator.getDistance(airport1.getLat(),airport1.getLongt(),a.getLat(),a.getLongt());
+				if(distance < minDiff){
+					minDiff = distance;
+					closea = a;
+				}
+			}
+		}
+		
+		return closea;
+	}
+	
+	public List<Airport> getAirportsWithin(String code, double withinDist){
+		
+		List<Airport> withinDistance = new ArrayList<>();
+		
+		Airport airport1 = this.getAirport((code));
+
+		for(Airport a : AirportManagerList ){
+			if(!(a).getCode().equals(airport1.getCode())){
+				double distance = DistanceCalculator.getDistance(airport1.getLat(),airport1.getLongt(),a.getLat(),a.getLongt());
+				if(distance <= withinDist){
+					
+					withinDistance.add(a);
+					
+				}
+			}
+		}
+		
+		return withinDistance;
+	}
+
+
+
+
+	
+	public String toString(){
+		String result = "The Manager list: \n";
+		for(Airport a: AirportManagerList){
+			result += a.toString() + "\n";
+		}
+		return result;
+	}
+
+}

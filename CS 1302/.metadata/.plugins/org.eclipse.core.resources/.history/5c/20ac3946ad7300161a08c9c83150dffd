@@ -1,0 +1,42 @@
+package prob3;
+
+public class Employee {
+public static void main(String[] args) {
+	new Employee ("Anna");
+	
+	}
+private double[] hours = new double [7];
+private String name;
+
+public Employee (String name){
+	this.name = name;
+	
+}
+public double getHours(int day){
+	
+	return hours[day];
+
+}
+public void setHours(int day, double hours){
+	this.hours[day] = hours;
+}
+public int numbDaysWorked(){
+	int count = 0;
+	for(int i = 0; i < hours.length; i++){
+		count++;
+}
+	return count;
+			
+}
+public double totalHours(){
+	int sum = 0;
+	for(int i = 0; i < hours.length; i++){
+		sum = (int)(sum + hours[i]);
+}
+	return sum;
+}
+public String toString(){
+	return name + " worked " + numbDaysWorked() + " days " 
+			+ " for a total of " + totalHours() + " hours.";
+}
+}

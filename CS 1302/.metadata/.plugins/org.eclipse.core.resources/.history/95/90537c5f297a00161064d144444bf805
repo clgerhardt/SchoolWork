@@ -1,0 +1,17 @@
+package animals;
+
+public class Driver {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Dog d = new Dog("Wu");
+		String msg = d.getName() + " " + d.makeSound() + "s";
+		System.out.println(msg);
+
+		Bird b = new Bird("Tweety");
+		msg = b.getName() + " " + b.makeSound() + "s";
+		System.out.println(msg);
+
+	}
+
+}

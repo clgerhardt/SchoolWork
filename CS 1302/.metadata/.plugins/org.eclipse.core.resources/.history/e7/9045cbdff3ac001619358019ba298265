@@ -1,0 +1,29 @@
+package prob1;
+
+import java.util.*;
+
+public class AirportDriver {
+
+	public static void main(String[] args) {
+
+		String airportFileSmall = "airportFileSmall.txt";
+		String airportFileMedium = "airportFileMedium.txt";
+		String airportFileSameCities = "airportFileSameCities.txt";
+		List<Airport> airports;
+		double dist;
+		Airport a1, a2;
+
+		// Test 1
+		airports = AirportLoader.getAirportList(airportFileSmall);
+		System.out.println("Test 1: AirportLoader.getAirportList()\n");
+		print(airports);
+
+
+	}
+
+	public static void print(List<Airport> airports){
+		for( Airport a : airports )
+			System.out.println(a);
+	}
+
+}

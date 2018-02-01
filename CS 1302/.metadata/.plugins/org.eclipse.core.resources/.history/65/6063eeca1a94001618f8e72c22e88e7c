@@ -1,0 +1,19 @@
+package testing;
+
+import java.util.Scanner;
+
+public class testing {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String readin = "s2";
+		Scanner scanner = new Scanner(readin);
+		System.out.println("" + scanner.hasNext());
+		System.out.println("" + scanner.nextLine());
+		
+//		String number = readin.substring(1);
+//		Integer num = Integer.valueOf(number);
+//		System.out.println(num);
+	}
+
+}

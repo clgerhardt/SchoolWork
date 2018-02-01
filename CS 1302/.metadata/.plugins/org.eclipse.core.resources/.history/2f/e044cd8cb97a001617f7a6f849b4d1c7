@@ -1,0 +1,22 @@
+package comparable_examples;
+
+public class Examples1 {
+	public static void main(String[] args) {
+		compareStrings();
+	}
+
+	public static void compareStrings() {
+		String x = "Atlanta";
+		String y = "Denver";
+		String z = new String("Atlanta");
+
+		System.out.println("x=" + x + ", y=" + y + ", z=" + z);
+		int diff1 = x.compareTo(y);
+		System.out.println("x.compareTo(y)=" + diff1);
+		int diff2 = y.compareTo(z);
+		System.out.println("y.compareTo(z)=" + diff2);
+		int diff3 = x.compareTo(z);
+		System.out.println("x.compareTo(z)=" + diff3);
+	}
+
+}

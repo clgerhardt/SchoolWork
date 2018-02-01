@@ -1,0 +1,46 @@
+ package prob2;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+
+public class RectangleTester {
+
+	public static void main(String[] args) {
+		ArrayList<GeometricObject> rectangles = new ArrayList<>();
+		
+		File inFile = new File("src/prob2/rectangles.txt");
+		
+	  	try{
+    		Scanner input = new Scanner( inFile );
+    		while(input.hasNext()){
+    				double width = input.nextDouble();
+    				double height = input.nextDouble();
+    				rectangles.add(new Rectangle(width, height));
+ 
+    			
+    		}
+    		input.close();
+    		
+    		for(GeometricObject e : rectangles){
+    			System.out.println(e.getArea() + "\n");
+    		}
+    		
+	  	}
+	  	
+	  	catch(IllegalRectangleException re){
+	  		System.out.println(re);
+	  		System.out.println("height = " + re.getHeight() + ", width = " + re.getWidth() + ", area = " + re.getArea());
+	  		
+	  	}
+	  	
+    	catch( IOException e ){
+    		System.out.println(e);
+    	}
+		
+    	
+	}
+}

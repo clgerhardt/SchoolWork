@@ -1,0 +1,14 @@
+
+public class ArrayGraph {
+	
+	int[][] a = new int[7][7];
+	
+	for(int r = 0;i<a.length;i++) {
+		for(int c = 0; c < a.length; c++) {
+			
+			a[r][c] = 0;
+			
+		}
+	}
+	
+}
